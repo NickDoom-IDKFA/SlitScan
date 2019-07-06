@@ -1,0 +1,32 @@
+!define BLANK ""
+c:\Dev\Dev_Soft\SlitScan\Release\SlitScan.obj : c:\Dev\Dev_Soft\SlitScan\Rel&
+ease\SlitScan.cpp .AUTODEPEND
+ @c:
+ cd c:\Dev\Dev_Soft\SlitScan\Release
+ *wpp386 SlitScan.cpp -i="C:\WATCOM/h;C:\WATCOM/h/nt" -w4 -e25 -zq -od -d2 -&
+bd -6r -bt=nt -fo=.obj -mf -xs -xr
+
+c:\Dev\Dev_Soft\SlitScan\Release\SlitScan.res : c:\Dev\Dev_Soft\SlitScan\Rel&
+ease\SlitScan.rc .AUTODEPEND
+ @c:
+ cd c:\Dev\Dev_Soft\SlitScan\Release
+ *wrc SlitScan.rc -bt=nt -dWIN32 -d_WIN32 -d__NT__ -i="$[:;C:\WATCOM/h;C:\WA&
+TCOM/h/nt" -q -ad -r -fo=SlitScan.res
+
+c:\Dev\Dev_Soft\SlitScan\Release\SlitScan.dll : c:\Dev\Dev_Soft\SlitScan\Rel&
+ease\SlitScan.obj c:\Dev\Dev_Soft\SlitScan\Release\SlitScan.res .AUTODEPEND
+ @c:
+ cd c:\Dev\Dev_Soft\SlitScan\Release
+ @%write SlitScan.lk1 FIL SlitScan.obj
+ @%append SlitScan.lk1 
+!ifneq BLANK ""
+ *wlib -q -n -b SlitScan.imp 
+ @%append SlitScan.lk1 LIBR SlitScan.imp
+!endif
+!ifneq BLANK "SlitScan.res"
+ @%append SlitScan.lk1 op resource=SlitScan.res
+!endif
+ *wlink name SlitScan d all SYS nt_dll op m op maxe=25 op q op symf @SlitSca&
+n.lk1
+ wlib -q -n -b SlitScan.lib +SlitScan.dll
+
